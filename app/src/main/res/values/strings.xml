@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MoiveApp</string>
+    <string name="bottom_nav_movie_menu">Movies</string>
+    <string name="bottom_nav_series_menu">Series</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
