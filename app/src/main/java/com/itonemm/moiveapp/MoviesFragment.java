@@ -3,7 +3,10 @@ package com.itonemm.moiveapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +31,7 @@ public class MoviesFragment extends Fragment {
         // Required empty public constructor
     }
     GridView gridView;
+    RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,9 +45,16 @@ public class MoviesFragment extends Fragment {
         ArrayList<MovieModel> movieModels=new ArrayList<MovieModel>();
         movieModels.add(movieModel1);
         movieModels.add(movieModel2);
+        movieModels.add(movieModel1);
+        movieModels.add(movieModel2);
         GridAdapter adapter=new GridAdapter(movieModels);
         gridView.setAdapter(adapter);
 
+        recyclerView=convertview.findViewById(R.id.rc_new_movies);
+        MovieRecyclerAdapter movieadapter=new MovieRecyclerAdapter(movieModels);
+        recyclerView.setAdapter(movieadapter);
+        LinearLayoutManager lm=new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        recyclerView.setLayoutManager(lm);
        return  convertview;
     }
 
@@ -86,5 +97,53 @@ public class MoviesFragment extends Fragment {
             return view;
         }
     }
+
+
+    public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdapter.MovieHolder> {
+
+        ArrayList<MovieModel> movieModels;
+
+        public MovieRecyclerAdapter(ArrayList<MovieModel> movieModels) {
+            this.movieModels = movieModels;
+        }
+
+        @NonNull
+        @Override
+        public MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+            View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.itemimage,parent,false);
+            MovieHolder movieHolder=new MovieHolder(view);
+            return movieHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MovieHolder holder, int position) {
+
+            final  MovieModel movieModel=movieModels.get(position);
+            Glide.with(getContext())
+                    .load(movieModel.imagelink)
+                    .into(holder.movieimage);
+            holder.moviewname.setText(movieModel.moviename);
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return movieModels.size();
+        }
+
+        public class MovieHolder extends RecyclerView.ViewHolder{
+            ImageView movieimage;
+            TextView moviewname;
+            public MovieHolder(@NonNull View itemView) {
+                super(itemView);
+
+                movieimage=itemView.findViewById(R.id.movieimagegridview);
+                moviewname=itemView.findViewById(R.id.movienamegridview);
+            }
+        }
+
+    }
+
 
 }

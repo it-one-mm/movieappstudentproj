@@ -2,4 +2,5 @@
 <resources>
     <dimen name="bottonnavheight">50dp</dimen>
     <dimen name="rc_view_height">200dp</dimen>
+    <dimen name="movienameheight">50dp</dimen>
 </resources>
